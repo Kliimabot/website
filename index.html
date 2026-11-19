@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kliimabot: heating monitoring for apartment buildings</title>
+<meta name="description" content="Kliimabot OÜ watches the heating systems of apartment buildings in Estonia and alerts the people responsible when something goes wrong.">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<style>
+  /* Self-hosted (OFL): Manrope for friendly words, IBM Plex Sans for everything else (18 Nov decision). */
+  @font-face { font-family: "Manrope"; font-weight: 700; font-display: swap; src: url(fonts/manrope-latin-700-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212; }
+  @font-face { font-family: "Manrope"; font-weight: 700; font-display: swap; src: url(fonts/manrope-latin-ext-700-normal.woff2) format("woff2"); unicode-range: U+0100-02AF, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; }
+  @font-face { font-family: "IBM Plex Sans"; font-weight: 400; font-display: swap; src: url(fonts/ibm-plex-sans-latin-400-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212; }
+  @font-face { font-family: "IBM Plex Sans"; font-weight: 400; font-display: swap; src: url(fonts/ibm-plex-sans-latin-ext-400-normal.woff2) format("woff2"); unicode-range: U+0100-02AF, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; }
+  @font-face { font-family: "IBM Plex Sans"; font-weight: 600; font-display: swap; src: url(fonts/ibm-plex-sans-latin-600-normal.woff2) format("woff2"); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212; }
+  @font-face { font-family: "IBM Plex Sans"; font-weight: 600; font-display: swap; src: url(fonts/ibm-plex-sans-latin-ext-600-normal.woff2) format("woff2"); unicode-range: U+0100-02AF, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; }
+  :root {
+    --brand: #0F5E6B; --brand-deep: #0A3C45; --accent: #17A398; --tint: #D9EEF0;
+    --ink: #10201F; --muted: #4A5C5B; --bg: #F7FAFA; --card: #FFFFFF; --line: #DCE6E6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --brand: #3CC6B4; --ink: #E8F1F0; --muted: #A9BDBB; --bg: #0C1A1C; --card: #12262A; --line: #1F3A3F; --tint: #143A40; }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 17px/1.6 "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+  header { padding: 28px 0 8px; }
+  header svg { height: 40px; width: auto; display: block; }
+  .logo-text { fill: var(--ink); }
+  .logo-house { stroke: var(--brand); }
+  h1, h2 { font-family: "Manrope", "IBM Plex Sans", system-ui, sans-serif; font-weight: 700; }
+  h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.2; letter-spacing: -0.02em; margin: 40px 0 16px; }
+  h2 { font-size: 20px; margin: 0 0 8px; }
+  p { margin: 0 0 14px; }
+  .lead { font-size: 19px; color: var(--muted); }
+  section.card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; margin: 20px 0; }
+  ul { margin: 0 0 14px; padding-left: 20px; }
+  a { color: var(--brand); }
+  .btn { display: inline-block; background: var(--brand-deep); color: #fff; text-decoration: none; padding: 10px 18px; border-radius: 10px; font-weight: 600; }
+  @media (prefers-color-scheme: dark) { .btn { background: var(--brand); color: #0C1A1C; } }
+  .et { border-left: 4px solid var(--accent); }
+  footer { color: var(--muted); font-size: 15px; padding: 24px 0 48px; border-top: 1px solid var(--line); margin-top: 32px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 64" role="img" aria-label="Kliimabot"><path class="logo-house" d="M10 31 32 12l22 19v21a2 2 0 0 1-2 2H12a2 2 0 0 1-2-2z" fill="none" stroke-width="4.5" stroke-linejoin="round"/><path d="M17 41h7l4-8 6 14 4-6h9" fill="none" stroke="#17A398" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/><text class="logo-text" x="76" y="43" font-family="IBM Plex Sans, Arial, sans-serif" font-size="30" font-weight="600" letter-spacing="-0.3">Kliimabot</text></svg>
+  </header>
+
+  <main>
+    <h1>We keep watch over the heating in apartment buildings.</h1>
+    <p class="lead">Kliimabot connects to the controllers of a building's heating system (boilers, district-heating substations and hot water) and watches them around the clock. When something goes wrong, the people responsible hear about it straight away.</p>
+
+    <section class="card">
+      <h2>Who it's for</h2>
+      <p>Housing associations (korteriühistud), the maintenance companies that look after their buildings, and our own operators. We are piloting the service in Estonia now.</p>
+    </section>
+
+    <section class="card">
+      <h2>What we send by email</h2>
+      <ul>
+        <li>Fault alarms, for example when a boiler stops or hot water runs cold.</li>
+        <li>Sign-in links for the customer portal.</li>
+        <li>Monthly reports on how each building's heating ran.</li>
+      </ul>
+      <p>Email goes only to registered users of a customer account. Users choose which alarms they get, and we send no marketing.</p>
+    </section>
+
+    <section class="card">
+      <h2>Customer portal</h2>
+      <p>Customers sign in at <a href="https://app.kliimabot.com">app.kliimabot.com</a>. Accounts are set up by us or by the customer's administrator.</p>
+      <a class="btn" href="https://app.kliimabot.com">Sign in</a>
+    </section>
+
+    <section class="card et" lang="et">
+      <h2>Eesti keeles</h2>
+      <p>Kliimabot jälgib kortermajade küttesüsteeme. Ühendume hoone küttesüsteemi kontrolleritega (katlad, kaugkütte soojussõlmed, soe vesi) ja hoiame neil ööpäevaringselt silma peal. Kui midagi läheb valesti, saavad vastutavad inimesed (korteriühistu esimees, hooldusettevõte või meie operaatorid) sellest kohe teada.</p>
+      <p>E-kirju saadame ainult konto registreeritud kasutajatele: rikketeated, sisselogimislingid ja igakuised aruanded. Reklaami me ei saada.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>Kliimabot OÜ</strong> · registry code 17638770 · Olevi põik 5, 10920 Tallinn, Estonia<br>
+    Contact: <a href="mailto:info@kliimabot.com">info@kliimabot.com</a></p>
+  </footer>
+</div>
+</body>
+</html>
